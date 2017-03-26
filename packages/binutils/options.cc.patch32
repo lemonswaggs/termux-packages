@@ -1,0 +1,13 @@
+--- ../cache/binutils-2.28/gold/options.cc	2017-03-02 08:23:53.000000000 +0000
++++ ./gold/options.cc	2017-03-24 05:56:31.425404273 +0000
+@@ -1227,8 +1227,8 @@
+ 	       || this->user_set_sysroot()
+ 	       || *TARGET_SYSTEM_ROOT != '\0')
+ 	{
+-	  this->add_to_library_path_with_sysroot("/lib");
+-	  this->add_to_library_path_with_sysroot("/usr/lib");
++	  this->add_to_library_path_with_sysroot("/system/lib");
++	  this->add_to_library_path_with_sysroot("/data/data/com.termux/files/usr/lib");
+ 	}
+       else
+ 	this->add_to_library_path_with_sysroot(TOOLLIBDIR);
