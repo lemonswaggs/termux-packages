@@ -1,0 +1,33 @@
+--- ../cache/llvm-4.0.0.src/tools/gold/gold-plugin.cpp	2016-12-17 03:48:46.000000000 +1100
++++ ./tools/gold/gold-plugin.cpp	2017-03-19 16:45:57.634534567 +1100
+@@ -33,6 +33,21 @@
+ #include <system_error>
+ #include <utility>
+ #include <vector>
++#include <sstream>
++
++template <typename T>
++std::string to_string(T value)
++{
++    std::ostringstream os ;
++    os << value ;
++    return os.str() ;
++}
++
++int main()
++{
++    std::string perfect = to_string(5) ;
++}
++
+ 
+ // FIXME: remove this declaration when we stop maintaining Ubuntu Quantal and
+ // Precise and Debian Wheezy (binutils 2.23 is required)
+@@ -481,7 +496,7 @@
+   // unique name.
+   cf.name = file->name;
+   if (file->offset)
+-    cf.name += ".llvm." + std::to_string(file->offset) + "." +
++    cf.name += ".llvm." + to_string(file->offset) + "." +
+                sys::path::filename(Obj->getSourceFileName()).str();
+ 
+   for (auto &Sym : Obj->symbols()) {
