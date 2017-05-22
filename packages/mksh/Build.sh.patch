@@ -1,0 +1,31 @@
+--- ../cache/mksh/Build.sh	2017-04-12 18:33:49.000000000 +0000
++++ ./Build.sh	2017-05-19 06:20:45.306631836 +0000
+@@ -2593,21 +2593,21 @@
+ test 1 = $eq && e=:
+ $e
+ $e Installing the shell:
+-$e "# $i -c -s -o root -g bin -m 555 $tfn /bin/$tfn"
++$e "# $i -c -s -o root -g bin -m 555 $tfn >>/data/data/com.termux/files/usr/bin/$tfn"
+ if test $legacy = 0; then
+-	$e "# grep -x /bin/$tfn /etc/shells >/dev/null || echo /bin/$tfn >>/etc/shells"
+-	$e "# $i -c -o root -g bin -m 444 dot.mkshrc /usr/share/doc/mksh/examples/"
++	$e "# grep -x >>/data/data/com.termux/files/usr/bin/$tfn >>/data/data/com.termux/files/usr/etc/etc/shells >/dev/null || echo >>/data/data/com.termux/files/usr/bin/$tfn >>/data/data/com.termux/files/usr/etc/shells"
++	$e "# $i -c -o root -g bin -m 444 dot.mkshrc /data/data/com.termux/files/usr/share/doc/mksh/examples/"
+ fi
+ $e
+ $e Installing the manual:
+ if test -f mksh.cat1; then
+-	$e "# $i -c -o root -g bin -m 444 lksh.cat1" \
+-	    "/usr/share/man/cat1/lksh.0"
++	$e "# $i -c -o root -g bin -m 444 lksh.cat1 \
++		    >>/data/data/com.termux/files/usr/share/man/cat1/lksh.0"
+ 	$e "# $i -c -o root -g bin -m 444 mksh.cat1" \
+-	    "/usr/share/man/cat1/mksh.0"
++	    ">>/data/data/com.termux/files/usr/share/man/cat1/mksh.0"
+ 	$e or
+ fi
+-$e "# $i -c -o root -g bin -m 444 lksh.1 mksh.1 /usr/share/man/man1/"
++$e "# $i -c -o root -g bin -m 444 lksh.1 mksh.1 >>/data/data/com.termux/files/usr/share/man/man1"
+ $e
+ $e Run the regression test suite: ./test.sh
+ $e Please also read the sample file dot.mkshrc and the fine manual.
