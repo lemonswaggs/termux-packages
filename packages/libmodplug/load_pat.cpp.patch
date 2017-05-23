@@ -1,0 +1,11 @@
+--- ../cache/libmodplug-master/src/load_pat.cpp	2017-04-24 13:17:00.000000000 +0000
++++ ./src/load_pat.cpp	2017-05-21 03:35:07.355259100 +0000
+@@ -148,7 +148,7 @@
+ 	char patname[16];
+ 	int samples;
+ } PATHANDLE;
+-
++#define HAVE_SINF
+ #ifndef HAVE_SINF
+ static inline float sinf(float x) {
+ /* default to double version */
