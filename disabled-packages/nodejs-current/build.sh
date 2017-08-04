@@ -34,16 +34,24 @@ termux_step_configure () {
 	# it also tries to use same c++ library. so to get around that
 	# sudo ln -s /usr/lib/i386-linux-gnu/libstdc++.so.6 /usr/lib/i386-linux-gnu/libc++_shared.so
 	# i686 and x86-64 have not been tested. it could be quite broken.
+	mkdir -p $TERMUX_PKG_TMPDIR/bin
+	#echo echo "$@" |  sed 's',"-I/data/data/com.termux/files/usr/include"," ",'g' |  sed 's',"-L/data/data/com.termux/files/usr/lib"," ",'g' |  xargs -L 1 /usr/bin/g++ > $TERMUX_PKG_TMPDIR/bin/g++
+	#echo echo "$@" |  sed 's',"-I/data/data/com.termux/files/usr/include"," ",'g' |  sed 's',"-L/data/data/com.termux/files/usr/lib"," ",'g' |  xargs -L 1 /usr/bin/gcc > $TERMUX_PKG_TMPDIR/bin/gcc
+	echo "echo \"\$@\" |  sed 's',\"-I/data/data/com.termux/files/usr/include\",\" \",'g' |  sed 's',\"-L/data/data/com.termux/files/usr/lib\",\" \",'g' |  xargs -L 1 /usr/bin/g++" > $TERMUX_PKG_TMPDIR/bin/g++
+	echo "echo \"\$@\" |  sed 's',\"-I/data/data/com.termux/files/usr/include\",\" \",'g' |  sed 's',\"-L/data/data/com.termux/files/usr/lib\",\" \",'g' |  xargs -L 1 /usr/bin/gcc" > $TERMUX_PKG_TMPDIR/bin/gcc
+	PATH=$TERMUX_PKG_TMPDIR/bin:$PATH
+	chmod +x $TERMUX_PKG_TMPDIR/bin/*
+
+	export CC="$CC $CFLAGS $CPPFLAGS $LDFLAGS"
+        export CXX="$CXX $CXXFLAGS $CPPFLAGS $LDFLAGS"
+        export CFLAGS="-Os"
+        export CXXFLAGS="-Os"
 	export CC_host="gcc -pthread -L/usr/lib/x86_64-linux-gnu"
 	export CXX_host="g++ -pthread -L/usr/lib/x86_64-linux-gnu"
 	if [ $TERMUX_ARCH = "arm" ] || [ $TERMUX_ARCH = "arm" ]; then
-		export CC_host="gcc -pthread -L/usr/lib/i386-linux-gnu"
-		export CXX_host="g++ -pthread -L/usr/lib/i386-linux-gnu"
+		export CC_host="gcc_h -pthread -L/usr/lib/i386-linux-gnu"
+		export CXX_host="g++_h -pthread -L/usr/lib/i386-linux-gnu"
 	fi
-	export CC="$CC $CFLAGS $CPPFLAGS $LDFLAGS"
-	export CXX="$CXX $CXXFLAGS $CPPFLAGS $LDFLAGS"
-	export CFLAGS="-Os"
-	export CXXFLAGS="-Os"
 	unset CPPFLAGS LDFLAGS
 
 
