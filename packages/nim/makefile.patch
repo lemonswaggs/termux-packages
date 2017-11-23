@@ -1,0 +1,23 @@
+--- ../cache/nim-0.17.2/makefile	2017-09-07 18:45:41.000000000 +0000
++++ ./makefile	2017-11-24 23:28:20.858713681 +0000
+@@ -2,9 +2,9 @@
+ # Template is in tools/niminst/makefile.tmpl
+ # To regenerate run ``niminst csource`` or ``koch csource``
+ 
+-CC = gcc
+-LINKER = gcc
+-COMP_FLAGS = $(CPPFLAGS) $(CFLAGS) -w -O3 -fno-strict-aliasing
++CC ?= gcc
++LINKER ?= gcc
++COMP_FLAGS = $(CPPFLAGS) $(CFLAGS) -w  -fno-strict-aliasing
+ LINK_FLAGS = $(LDFLAGS) 
+ binDir = bin
+ 
+@@ -70,6 +70,7 @@
+ ifeq ($(uosname),android)
+   myos = android
+   LINK_FLAGS += -landroid-glob
++  linker = $(LD)
+ endif
+ 
+ ifeq ($(ucpu),i386)

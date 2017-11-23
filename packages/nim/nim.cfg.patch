@@ -1,0 +1,48 @@
+--- ../cache/nim-0.17.2/config/nim.cfg	2017-09-07 18:45:43.000000000 +0000
++++ ./config/nim.cfg	2017-11-24 23:11:25.595342411 +0000
+@@ -90,17 +90,20 @@
+   @end
+ @end
+ 
+-@if android:
+   cc = clang
+-  @if termux:
+-    gcc.options.linker = "-landroid-glob"
+-    gcc.cpp.options.linker = "-landroid-glob"
+-    clang.options.linker = "-landroid-glob"
+-    clang.cpp.options.linker = "-landroid-glob"
+-    tcc.options.linker = "-landroid-glob"
+-    define:"useShPath:/system/bin/sh"
+-  @end
+-@end
++    clang.options.exe = "@CPPFLAGS@"
++    gcc.options.linker = "@LDFLAGS@ -landroid-glob"
++    gcc.cpp.options.linker = "@LDFLAGS@ -landroid-glob"
++    clang.options.linker = "@LDFLAGS@ -landroid-glob"
++    clang.cpp.options.linker = "@LDFLAGS@ -landroid-glob"
++    tcc.options.linker = "@LDFLAGS@ -landroid-glob"
++    clang.options.debug = "-g"
++    clang.options.always = "@CPPFLAGS@ -w"
++    clang.options.speed = "-O3"
++    clang.options.size = "@CFLAGS@"
++    clang.linkerexe = "@CC@"
++    clang.exe = "@CC@"
++    define:"useShPath:/data/data/com.termux/files/usr/bin/sh"
+ 
+ # Configuration for the Intel C/C++ compiler:
+ @if windows:
+@@ -189,10 +192,10 @@
+ llvm_gcc.options.size = "-Os"
+ 
+ # Configuration for the LLVM CLang compiler:
+-clang.options.debug = "-g"
+-clang.options.always = "-w"
+-clang.options.speed = "-O3"
+-clang.options.size = "-Os"
++#clang.options.debug = "-g"
++#clang.options.always = "-I/data/data/com.termux/files/usr/include -w"
++#clang.options.speed = "-O3"
++#clang.options.size = "-Os"
+ 
+ # Configuration for the Visual C/C++ compiler:
+ vcc.exe =     "vccexe.exe"

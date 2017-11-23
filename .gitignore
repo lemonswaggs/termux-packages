@@ -6,6 +6,7 @@ Session.vim
 .netrwhist
 *~
 /debs/
+.junk/
 ### Vagrant ###
 scripts/*.log
 scripts/.vagrant/
